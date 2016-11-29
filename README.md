@@ -44,7 +44,7 @@ $ docker run --privileged  -d \
               -e "OPENVPN_USERNAME=user" \
               -e "OPENVPN_PASSWORD=pass" \
               -p 9091:9091 \
-              haugene/transmission-openvpn
+              kwilliams312/openvpn-download-manager
 ```
 
 You must set the environment variables `OPENVPN_PROVIDER`, `OPENVPN_USERNAME` and `OPENVPN_PASSWORD` to provide basic connection details.
@@ -117,7 +117,7 @@ $ docker run --privileged  -d \
               -v /etc/localtime:/etc/localtime:ro \
               -env-file /your/docker/env/file \
               -p 9091:9091 \
-              haugene/transmission-openvpn
+              kwilliams312/openvpn-download-manager
 ```
 
 ## Access the WebUI
@@ -134,7 +134,7 @@ Alternatively you can reverse proxy the traffic through another container, as th
 $ docker run -d \
       --link <transmission-container>:transmission \
       -p 8080:8080 \
-      haugene/transmission-openvpn-proxy
+      kwilliams312/openvpn-download-manager-proxy
 ```
 
 ## Known issues, tips and tricks
@@ -228,7 +228,7 @@ nameserver 8.8.8.8
 nameserver 8.8.4.4
 ```
 - Save the file with [escape] + `:wq!`
-- Create your docker container with a classic command like `docker run --privileged -d -v /volume1/foldername/resolv.conf:/etc/resolv.conf -v /volume1/yourpath/:/data -e "OPENVPN_PROVIDER=PIA" -e "OPENVPN_CONFIG=Netherlands" -e "OPENVPN_USERNAME=XXXXX" -e "OPENVPN_PASSWORD=XXXXX" -p 9091:9091 --name "TransmissionVPN" haugene/transmission-openvpn`
+- Create your docker container with a classic command like `docker run --privileged -d -v /volume1/foldername/resolv.conf:/etc/resolv.conf -v /volume1/yourpath/:/data -e "OPENVPN_PROVIDER=PIA" -e "OPENVPN_CONFIG=Netherlands" -e "OPENVPN_USERNAME=XXXXX" -e "OPENVPN_PASSWORD=XXXXX" -p 9091:9091 --name "TransmissionVPN" kwilliams312/openvpn-download-manager`
 - To make it work after a nas restart, create an automated task in your synology web interface : go to **Settings Panel > Task Scheduler ** create a new task that run `/volume1/foldername/TUN.sh` as root (select '_root_' in 'user' selectbox). This task will start module that permit the container to run, you can make a task that run on startup. These kind of task doesn't work on my nas so I just made a task that run every minute.
 - Enjoy
 
@@ -244,7 +244,7 @@ OpenVPN is set to exit if there is a connection failure. OpenVPN exiting trigger
 
 ```
 [Unit]
-Description=haugene/transmission-openvpn docker container
+Description=kwilliams312/openvpn-download-manager docker container
 After=docker.service
 Requires=docker.service
 
@@ -253,7 +253,7 @@ User=bittorrent
 TimeoutStartSec=0
 ExecStartPre=-/usr/bin/docker kill transmission-openvpn
 ExecStartPre=-/usr/bin/docker rm transmission-openvpn
-ExecStartPre=/usr/bin/docker pull haugene/transmission-openvpn
+ExecStartPre=/usr/bin/docker pull kwilliams312/openvpn-download-manager
 ExecStart=/usr/bin/docker run \
         --name transmission-openvpn \
         --privileged \
@@ -267,7 +267,7 @@ ExecStart=/usr/bin/docker run \
         -p 9091:9091 \
         --dns 8.8.8.8 \
         --dns 8.8.4.4 \
-        haugene/transmission-openvpn
+        kwilliams312/openvpn-download-manager
 Restart=always
 RestartSec=5
 

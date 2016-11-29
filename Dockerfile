@@ -113,4 +113,4 @@ ENV OPENVPN_USERNAME=**None** \
 EXPOSE 9091
 EXPOSE 6789
 CMD ["dumb-init", "/etc/openvpn/start.sh"]
-CMD ["/nzbget/nzbget -D"]
+CMD ["/nzbget/nzbget", "-D"]

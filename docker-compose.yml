@@ -1,11 +1,12 @@
 version: '2'
 services:
  transmission:
-  image: haugene/transmission-openvpn
+  image: kwilliams312/openvpn-download-manager
   privileged: true
   restart: always
   ports:
     - "9091:9091"
+    - "6789:6789"
   dns:
     - 8.8.8.8
     - 8.8.4.4
