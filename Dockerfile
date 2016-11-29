@@ -112,5 +112,6 @@ ENV OPENVPN_USERNAME=**None** \
 # Expose port and run
 EXPOSE 9091
 EXPOSE 6789
-CMD ["dumb-init", "/etc/openvpn/start.sh"]
+ENTRYPOINT ["dumb-init", "--"]
+CMD ["/etc/openvpn/start.sh"]
 CMD ["/nzbget/nzbget", "-D"]
