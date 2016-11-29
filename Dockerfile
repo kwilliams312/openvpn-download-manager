@@ -3,7 +3,7 @@
 # Version 1.14
 
 FROM ubuntu:14.04
-MAINTAINER Kristian Haugene
+MAINTAINER Ken Williams 
 
 VOLUME /data
 VOLUME /config
@@ -24,7 +24,9 @@ RUN apt-get update \
     && groupmod -g 1000 users \
     && useradd -u 911 -U -d /config -s /bin/false abc \
     && usermod -G users abc \
-    && wget -O - http://nzbget.net/info/nzbget-version-linux.json | sed -n "s/^.*stable-download.*: \"\(.*\)\".*/\1/p" | wget --no-check-certificate -i - -O nzbget-latest-bin-linux.run
+    && wget -O - http://nzbget.net/info/nzbget-version-linux.json | sed -n "s/^.*stable-download.*: \"\(.*\)\".*/\1/p" | wget --no-check-certificate -i - -O nzbget-latest-bin-linux.run \
+    && sh /nzbget-latest-bin-linux.run \
+    && rm -rf /nzbget-latest-bin-linux.run
 
 ADD openvpn/ /etc/openvpn/
 ADD transmission/ /etc/transmission/
