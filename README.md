@@ -56,6 +56,8 @@ As you can see, the container also expects a data volume to be mounted.
 This is where Transmission will store your downloads, incomplete downloads and look for a watch directory for new .torrent files.
 By default a folder named transmission-home will also be created under /data, this is where Transmission stores its state.
 
+### NZBGet info
+Default login credentials are username: nzbget, password: tegbzn6789
 
 ### Required environment options
 | Variable | Function | Example |
